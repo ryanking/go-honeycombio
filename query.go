@@ -72,7 +72,7 @@ func (s *queries) GetQueryResult(ctx context.Context, dataset string, queryID st
 	// Because query results are async, we may need to wait awhile for them to be available.
 	qr := &QueryResult{}
 	// Start by checking immediately, wait for 10 milliseconds the first time and double the wait time each time.
-	var sleep = time.Millisecond * 10
+	var sleep = time.Millisecond * 100
 	for i := 0; i < 10; i++ {
 		err = s.client.performRequest(ctx, "GET", fmt.Sprintf("/1/query_results/%s/%s", urlEncodeDataset(dataset), r.ID), nil, qr)
 		if err != nil {
